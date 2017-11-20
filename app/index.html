@@ -9,37 +9,37 @@
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
     <script src="firebaseInit.js"></script>
-    <script>
-      
-      
-
-      var auth = firebase.auth();
-     
-
-      function loginStart(){
-      var email = document.getElementById('userEmail').value;
-      var password = document.getElementById('userPassword').value;
-      auth.signInWithEmailAndPassword(email, password).catch(function(error){
-        alert(error.message);        
-        });
-        auth.onAuthStateChanged(function(user){
-        if(user){
-          location.href="loginsuccess.html";
-        }           
-        
-      });
-      }
-
-      
-
-    </script>
+    
 
 </head>
 <body>
 
   <input type="email" id="userEmail" placeholder="이메일을 입력하세요"/>
   <input type="password" id="userPassword" placeholder="이메일을 입력하세요"/>
-  <button type="button" onclick="loginStart()">Login Now</button>
+  <button type="button" id="loginButton" onclick="loginStart()">Login Now</button>
+  <button type="button" id="goSignupPage" onclick="btnGoSignup()">Sign up for New user</button>
     
+  <script>
+    
+    var auth = init.auth();
+
+    function loginStart(callback){
+      var email = document.getElementById('userEmail').value;
+      var password = document.getElementById('userPassword').value;
+      auth.signInWithEmailAndPassword(email, password).then(function(user){
+        console.log(user.email);
+        location.href="/loginsuccess.html";
+        }).catch(function(error){
+        console.log(error.message);
+      });
+    }
+
+    function btnGoSignup(){
+      location.href="/signup.html";
+    }
+    
+    
+  </script>
+
 </body>
 </html>
